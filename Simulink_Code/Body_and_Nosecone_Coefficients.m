@@ -11,8 +11,10 @@ AoA = angle of attack
 
 Re_C = 5.*10.^5; %critical reynolds number
 
-if Re < Re_C
-    C_f = 1.328./(sqrt(Re));
+if Re < 1
+    C_f = 0;
+elseif Re < Re_C
+    C_f = 1.328./(sqrt(Re)); 
 else
     B = Re_C.*((0.074./(Re.^(1./5)))-(1.328./(sqrt(Re))));
     C_f = (0.074./(Re.^(1./5)))-(B./Re);
@@ -22,7 +24,11 @@ L_TR = L_N + L_B;
 C_D_fb = (1 + (60./((L_TR./D_B).^3)) + 0.0025.*(L_B./D_B))...
         .*(2.7.*(L_N./D_B) + 4.*(L_B./D_B) + 2.*(1-(D_D./D_B)).*(L_C./D_B)).*C_f;
 %C_D full body
-C_D_b = 0.029.*((D_D./D_B).^3)./sqrt(C_D_fb); %C_D base
+if C_f == 0
+    C_D_b = 0;
+else
+    C_D_b = 0.029.*((D_D./D_B).^3)./sqrt(C_D_fb); %C_D base
+end
 
 
 delta = 0.9; %estimate from graphs later

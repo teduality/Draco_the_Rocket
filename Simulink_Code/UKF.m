@@ -104,10 +104,7 @@ classdef UKF < matlab.System
             P = 1;
         end
 
-        function sts = getSampleTimeImpl(obj)
-             sts = createSampleTime(obj,'Type','Discrete',...
-             'SampleTime',0.001);
-        end
+ 
 
         
 

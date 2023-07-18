@@ -30,8 +30,10 @@ A_fe = (1./2).*(lr+lt).*ls; %m.^2fin exposed area
 
 A_fp = A_fe + (1./2).*df.*lr; %m.^2 fin planform area
 
-if Re < Re_C
-    C_f = 1.328./(sqrt(Re));
+if Re < 1
+    C_f = 0;
+elseif Re < Re_C
+    C_f = 1.328./(sqrt(Re)); 
 else
     B = Re_C.*((0.074./(Re.^(1./5)))-(1.328./(sqrt(Re))));
     C_f = (0.074./(Re.^(1./5)))-(B./Re);

@@ -4,7 +4,7 @@ if Dist_magn > 10
     Angles_real = Angles;
     change=1;
 else
-    Angles_real = [deg2rad(5); deg2rad(0); deg2rad(0)];
+    Angles_real = [0; 0; 0];
     change=0;
 end
 end

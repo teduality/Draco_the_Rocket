@@ -17,15 +17,15 @@ Re_C = 5.*10.^5; %critical reynolds number
 Dimension_Calc = K_fb.*(4.*n.*(ls./dn).^2)./(1+sqrt(1+((2.*lm)./(lr+lt)).^2));
 
 C_N_flap_1 = [((AoA(1)+AoA_flaps(1)).*Dimension_Calc);...
-              ((AoA(2)+AoA_flaps(1)).*Dimension_Calc)]; %coefficient of stability
+              0]; %coefficient of stability
 
-C_N_flap_2 = [((AoA(1)+AoA_flaps(2)).*Dimension_Calc);...
+C_N_flap_2 = [0;...
               ((AoA(2)+AoA_flaps(2)).*Dimension_Calc)]; %coefficient of stability
 
 C_N_flap_3 = [((AoA(1)+AoA_flaps(3)).*Dimension_Calc);...
-              ((AoA(2)+AoA_flaps(3)).*Dimension_Calc)]; %coefficient of stability
+              0]; %coefficient of stability
 
-C_N_flap_4 = [((AoA(1)+AoA_flaps(4)).*Dimension_Calc);...
+C_N_flap_4 = [0;...
               ((AoA(2)+AoA_flaps(4)).*Dimension_Calc)]; %coefficient of stability
 
 C_N_flaps =  C_N_flap_1 + C_N_flap_2 + C_N_flap_3 + C_N_flap_4;
@@ -34,7 +34,7 @@ C_N_roll = C_N_flap_1(1) + C_N_flap_1(2) + C_N_flap_2(1) + C_N_flap_2(2) - C_N_f
 
 %Center of Pressure
 
-Xf = 0.2; %tip of nosecone to fin leading edge
+Xf = 1.2; %tip of nosecone to fin leading edge
 
 C_P_flaps = Xf + (lm.*(lr+2.*lt))./(3.*(lr+lt)) + (1./6).*(lr+lt-(lr.*lt)./(lr+lt)); %center of pressure
 
@@ -44,8 +44,10 @@ A_fe = (1./2).*(lr+lt).*ls; %m.^2fin exposed area
 
 A_fp = A_fe + (1./2).*df.*lr; %m.^2 fin planform area
 
-if Re < Re_C
-    C_f = 1.328./(sqrt(Re));
+if Re < 1
+    C_f = 0;
+elseif Re < Re_C
+    C_f = 1.328./(sqrt(Re)); 
 else
     B = Re_C.*((0.074./(Re.^(1./5)))-(1.328./(sqrt(Re))));
     C_f = (0.074./(Re.^(1./5)))-(B./Re);
